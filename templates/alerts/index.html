@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header>
+    <h1>Alerts</h1>
+</header>
+<section>
+    <div class="list-group mb-3">
+        {% for alert in alerts %}
+            <div class="list-group-item mb-3">
+                <h4>{{ alert.name }}</h4>
+                <p>
+                    <a href="{{ alert.item.url }}">{{ alert.item_id }}</a>
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+<!--    url_for: flask function, generate a complete url for "items" blueprint, "new_item" function-->
+    <a class="btn btn-primary" href="{{ url_for('alerts.new_alert') }}">
+        Create new alert
+    </a>
+</section>
+{% endblock %}
