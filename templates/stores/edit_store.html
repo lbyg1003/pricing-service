@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <header><h1>Create Store</h1></header>
-    <section class="create-store-form">
+    <header><h1>Edit Store</h1></header>
+    <section class="edit-store-form">
         <form method="post">
             <div class="mb-3">
                 <label for="store_name", class="form-label">Store Name</label>
                 <input type="text" class="form-control" id="store_name" name="store_name" placeholder="Amazon"
-                aria-describedby="store name help"/>
+                       value="{{ store.name }}" aria-describedby="store name help"/>
                 <div id="store name help" class="form-text">
                     Give a short description of the store you wanna add.
                 </div>
@@ -15,7 +15,7 @@
             <div class="mb-3">
                 <label for="url_prefix" class="form-label">URL Prefix</label>
                 <input type="text" class="form-control" id="url_prefix" name="url_prefix" placeholder="https://..."
-                       aria-describedby="URL prefix help"/>
+                       value="{{ store.url_prefix }}" aria-describedby="URL prefix help"/>
                 <div id="URL prefix help" class="form-text">
                     What URL will all items in the store start with?
                 </div>
@@ -23,7 +23,7 @@
             <div class="mb-3">
                 <label for="tag_name" class="form-label">HTML Tag Name</label>
                 <input type="text" class="form-control" id="tag_name" name="tag_name" placeholder="span"
-                       aria-describedby="tag name help"/>
+                       value="{{ store.tag_name }}" aria-describedby="tag name help"/>
                 <div id="tag name help" class="form-text">
                     What HTML tag contains the price for items in this store?
                 </div>
@@ -31,12 +31,12 @@
             <div class="mb-3">
                 <label for="attrs" class="form-label">HTML Tag Attributes</label>
                 <input type="text" class="form-control" id="attrs" name="attrs" placeholder='{"class": "price"}'
-                       aria-describedby="tag attributes help"/>
+                       value="{{ store.attrs }}" aria-describedby="tag attributes help"/>
                 <div id="tag attributes help" class="form-text">
                     What attributes of the HTML tag contains the price for items in this store?
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </section>
 {% endblock %}
