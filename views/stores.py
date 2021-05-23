@@ -42,3 +42,10 @@ def edit_store(store_id):
         return redirect(url_for(".index"))
 
     return render_template("stores/edit_store.html", store=store)
+
+
+@store_blueprint.route("/delete/<string:store_id>")
+def delete_store(store_id):
+    store = Store.get_by_id(store_id)
+    store.remove_from_mongo()
+    return redirect(url_for(".index"))
