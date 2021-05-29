@@ -5,6 +5,7 @@ from models.model import Model
 from common.utils import Utils
 import models.user.errors as UserErrors
 
+
 @dataclass
 class User(Model):
     collection: str = field(init=False, default="users")
@@ -27,6 +28,13 @@ class User(Model):
             raise UserErrors.UserNotFoundError("User not found.")
 
     @classmethod
+    def is_login_valid(cls, email: str, password: str) -> bool:
+        user = cls.find_by_email(email)
+        if not Utils.check_hashed_password(password, user.password):
+            raise UserErrors.IncorrectPasswordError("Invalid password.")
+        return True
+
+    @classmethod
     def register_user(cls, email: str, password: str) -> bool:
         if not Utils.email_is_valid(email):
             raise UserErrors.InvalidEmailError("The email format is invalid.")
@@ -36,7 +44,6 @@ class User(Model):
             # if succeed, user already exists
             raise UserErrors.UserAlreadyRegisteredError("The email already exists.")
         except UserErrors.UserNotFoundError:
-            User(email, password).save_to_mongo()
+            User(email, Utils.hash_password(password)).save_to_mongo()
 
         return True
-
